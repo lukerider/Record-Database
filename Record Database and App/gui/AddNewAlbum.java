@@ -43,6 +43,7 @@ public class AddNewAlbum extends JFrame {
 	protected final int ArtWorkLBWidth = 392, ArtWorkLBHeight = 345, ArtWorkLBX = 10;
 	protected int ArtWorkLBY = 11;
 	protected static JLabel ArtWork;
+	private JTextField PurchasedDateField;
 	
 
 	/**
@@ -235,6 +236,17 @@ public class AddNewAlbum extends JFrame {
 		GeneralInfo.add(PurchasedPriceField);
 		PurchasedPriceField.setColumns(10);
 		
+		JLabel lblpurchasedDate = new JLabel("*Purchased Date:");
+		lblpurchasedDate.setBounds(226, 61, 104, 14);
+		GeneralInfo.add(lblpurchasedDate);
+		lblpurchasedDate.setLabelFor(PurchasedDateField);
+		
+		PurchasedDateField = new JTextField();
+		PurchasedDateField.setBorder(new LineBorder(Color.BLACK));
+		PurchasedDateField.setBounds(332, 58, 86, 20);
+		GeneralInfo.add(PurchasedDateField);
+		PurchasedDateField.setColumns(10);
+		
 		JLabel lblOtherInfo = new JLabel("Other Info:");
 		lblOtherInfo.setBounds(10, 186, 90, 14);
 		GeneralInfo.add(lblOtherInfo);
@@ -242,7 +254,7 @@ public class AddNewAlbum extends JFrame {
 		JTextPane textPane = new JTextPane();
 		textPane.setBorder(new LineBorder(new Color(0, 0, 0)));
 		textPane.setBounds(130, 190, 212, 64);
-		GeneralInfo.add(textPane);	
+		GeneralInfo.add(textPane);
 		
 		JPanel AlbumArtwork = new JPanel();
 		tabbedPane.addTab("Album Artwork", null, AlbumArtwork, null);
