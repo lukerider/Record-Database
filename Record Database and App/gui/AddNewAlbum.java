@@ -36,7 +36,7 @@ public class AddNewAlbum extends JFrame {
 	private JTextField SleeveField;
 	private JTextField PurchasedFromField;
 	private JTextField PurchasedPriceField;
-	private JTable table;
+	private JTable TrackListTable;
 	
 	//Manually Added
 	private int songNumber = 10;
@@ -44,6 +44,7 @@ public class AddNewAlbum extends JFrame {
 	protected int ArtWorkLBY = 11;
 	protected static JLabel ArtWork;
 	private JTextField PurchasedDateField;
+	private JTable ArtistTable;
 	
 
 	/**
@@ -77,7 +78,7 @@ public class AddNewAlbum extends JFrame {
 		setTitle("Add New Album");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(AddNewAlbum.class.getResource("/gui/11970932001393807721BenBois_Vinyl_records.svg.hi.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 465, 488);
+		setBounds(100, 100, 465, 642);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -91,7 +92,7 @@ public class AddNewAlbum extends JFrame {
 		GeneralInfo.setLayout(null);
 		
 		JPanel DonePanel = new JPanel();
-		DonePanel.setBounds(0, 391, 434, 20);
+		DonePanel.setBounds(0, 545, 434, 20);
 		GeneralInfo.add(DonePanel);
 		DonePanel.setLayout(null);
 		
@@ -104,33 +105,65 @@ public class AddNewAlbum extends JFrame {
 		btnNewButton.setBounds(332, 0, 89, 19);
 		DonePanel.add(btnNewButton);
 		
-		JScrollPane TrackListTable = new JScrollPane();
-		TrackListTable.setBorder(new LineBorder(Color.BLACK));
-		TrackListTable.setBounds(10, 265, 409, 102);
-		GeneralInfo.add(TrackListTable);
+		JScrollPane TrackListScrollPanel = new JScrollPane();
+		TrackListScrollPanel.setBorder(new LineBorder(Color.BLACK));
+		TrackListScrollPanel.setBounds(10, 420, 409, 102);
+		GeneralInfo.add(TrackListScrollPanel);
 		
-		String[] columnHeadders = {"Track Number", "Track Name", "Track Artist", "Track Length"};
-		final DefaultTableModel tm = new DefaultTableModel(columnHeadders, 10);
-		table = new JTable(tm);
+		
+		String[] SongColumnHeadders = {"Track Number", "Track Name", "Track Artist", "Track Length"};
+		final DefaultTableModel songtm = new DefaultTableModel(SongColumnHeadders, 10);
+		TrackListTable = new JTable(songtm);
 		//sets track number column for first 10 rows
 		for(int step=0; step<songNumber;step++)
 		{
-			table.setValueAt((""+(step+1)),step,0);
+			TrackListTable.setValueAt((""+(step+1)),step,0);
 		}	
-		TrackListTable.setViewportView(table);
-		final Object[] blank = new Object[columnHeadders.length];
+		final Object[] songBlank = new Object[SongColumnHeadders.length];
+			
+		TrackListScrollPanel.setViewportView(TrackListTable);
 		JButton AddSong = new JButton("Add Song");
 		AddSong.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent arg0)
 			{
-				tm.addRow(blank);
-				table.setValueAt((""+(songNumber+1)), songNumber,0);
+				songtm.addRow(songBlank);
+				TrackListTable.setValueAt((""+(songNumber+1)), songNumber,0);
 				songNumber++;
 			}
 		});
-		AddSong.setBounds(332, 367, 89, 20);
+		
+		JLabel lblSongs = new JLabel("Songs:");
+		lblSongs.setLabelFor(TrackListScrollPanel);
+		lblSongs.setBounds(10, 405, 46, 14);
+		GeneralInfo.add(lblSongs);
+		AddSong.setBounds(330, 522, 89, 20);
 		GeneralInfo.add(AddSong);
+		
+		JScrollPane PeopleScrollPanel = new JScrollPane();
+		PeopleScrollPanel.setBorder(new LineBorder(Color.BLACK));
+		PeopleScrollPanel.setBounds(10, 282, 409, 102);
+		GeneralInfo.add(PeopleScrollPanel);
+		
+		String[] peopleColumnHeadders = {"*First Name", "*Last Name", "Birthday", "Diseades Date", "From"};
+		final DefaultTableModel peopletm = new DefaultTableModel(peopleColumnHeadders, 5);
+		ArtistTable = new JTable(peopletm);	
+		PeopleScrollPanel.setViewportView(ArtistTable);
+		
+		final Object[] peopleblank = new Object[peopleColumnHeadders.length];
+		JButton btnAddPerson = new JButton("Add Person");
+		btnAddPerson.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				peopletm.addRow(peopleblank);
+			}
+		});
+		btnAddPerson.setBounds(315, 386, 104, 20);
+		GeneralInfo.add(btnAddPerson);
+		
+		JLabel lblContributingPeople = new JLabel("Contributing People:");
+		lblContributingPeople.setLabelFor(PeopleScrollPanel);
+		lblContributingPeople.setBounds(10, 265, 120, 14);
+		GeneralInfo.add(lblContributingPeople);
 		
 		
 		
@@ -159,24 +192,24 @@ public class AddNewAlbum extends JFrame {
 		AlbumField.setColumns(10);
 		
 		JLabel lblcatNumber = new JLabel("*CAT Number:");
-		lblcatNumber.setBounds(10, 61, 104, 14);
+		lblcatNumber.setBounds(10, 86, 104, 14);
 		GeneralInfo.add(lblcatNumber);
 		
 		CATNumField = new JTextField();
 		CATNumField.setBorder(new LineBorder(new Color(0, 0, 0)));
 		lblcatNumber.setLabelFor(CATNumField);
-		CATNumField.setBounds(130, 58, 86, 20);
+		CATNumField.setBounds(130, 83, 86, 20);
 		GeneralInfo.add(CATNumField);
 		CATNumField.setColumns(10);
 		
-		JLabel lblReleaseYear = new JLabel("Release Year:");
-		lblReleaseYear.setBounds(10, 86, 104, 14);
+		JLabel lblReleaseYear = new JLabel("*Release Year:");
+		lblReleaseYear.setBounds(10, 61, 104, 14);
 		GeneralInfo.add(lblReleaseYear);
 		
 		ReleaseYearField = new JTextField();
 		ReleaseYearField.setBorder(new LineBorder(new Color(0, 0, 0)));
 		lblReleaseYear.setLabelFor(ReleaseYearField);
-		ReleaseYearField.setBounds(130, 83, 86, 20);
+		ReleaseYearField.setBounds(130, 58, 86, 20);
 		GeneralInfo.add(ReleaseYearField);
 		ReleaseYearField.setColumns(10);
 		
@@ -256,6 +289,8 @@ public class AddNewAlbum extends JFrame {
 		textPane.setBounds(130, 190, 212, 64);
 		GeneralInfo.add(textPane);
 		
+		
+		
 		JPanel AlbumArtwork = new JPanel();
 		tabbedPane.addTab("Album Artwork", null, AlbumArtwork, null);
 		AlbumArtwork.setLayout(null);
@@ -266,12 +301,12 @@ public class AddNewAlbum extends JFrame {
 		ArtworkPanel.setLayout(null);
 		
 		final JScrollPane ArtworkScrollPane = new JScrollPane(ArtworkPanel,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		ArtworkScrollPane.setBounds(10, 11, 414, 369);
+		ArtworkScrollPane.setBounds(10, 11, 414, 523);
 		AlbumArtwork.add(ArtworkScrollPane);
 		
 				
 		JPanel DonePanel_2 = new JPanel();
-		DonePanel_2.setBounds(0, 391, 434, 20);
+		DonePanel_2.setBounds(0, 545, 434, 20);
 		AlbumArtwork.add(DonePanel_2);
 		DonePanel_2.setLayout(null);
 		
@@ -296,5 +331,9 @@ public class AddNewAlbum extends JFrame {
 		DonePanel_2.add(btnDone);
 		btnAddArtwork.setBounds(191, 0, 119, 19);
 		DonePanel_2.add(btnAddArtwork);
+		
+		
+		
+		
 	}
 }
