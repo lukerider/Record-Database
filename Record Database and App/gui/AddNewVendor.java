@@ -12,6 +12,7 @@ import javax.swing.JTextPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
+import javax.swing.JButton;
 
 public class AddNewVendor extends JFrame {
 
@@ -21,7 +22,6 @@ public class AddNewVendor extends JFrame {
 	private JTextField CityField;
 	private JTextField StateField;
 	private JTextField WebsiteField;
-	private JLabel lblOtherInfo;
 
 	/**
 	 * Launch the application.
@@ -46,7 +46,7 @@ public class AddNewVendor extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(AddNewVendor.class.getResource("/gui/11970932001393807721BenBois_Vinyl_records.svg.hi.png")));
 		setTitle("Add A New Vendor");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 450, 203);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -107,15 +107,8 @@ public class AddNewVendor extends JFrame {
 		contentPane.add(WebsiteField);
 		WebsiteField.setColumns(10);
 		
-		lblOtherInfo = new JLabel("Other Info:");
-		lblOtherInfo.setBounds(10, 136, 90, 14);
-		contentPane.add(lblOtherInfo);
-		
-		JTextPane OtherInfoPane = new JTextPane();
-		lblOtherInfo.setLabelFor(OtherInfoPane);
-		OtherInfoPane.setBorder(new LineBorder(new Color(0, 0, 0)));
-		OtherInfoPane.setBounds(110, 139, 190, 83);
-		contentPane.add(OtherInfoPane);
+		JButton btnDone = new JButton("Done");
+		btnDone.setBounds(335, 141, 89, 23);
+		contentPane.add(btnDone);
 	}
-
 }
