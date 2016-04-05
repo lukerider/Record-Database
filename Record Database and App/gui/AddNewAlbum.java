@@ -145,7 +145,7 @@ public class AddNewAlbum extends JFrame {
 		PeopleScrollPanel.setBounds(10, 282, 409, 102);
 		GeneralInfo.add(PeopleScrollPanel);
 		
-		String[] peopleColumnHeadders = {"*First Name", "*Last Name", "Birthday", "Diseades Date", "From"};
+		String[] peopleColumnHeadders = {"*First Name", "*Last Name", "*Instrument"};
 		final DefaultTableModel peopletm = new DefaultTableModel(peopleColumnHeadders, 5);
 		ArtistTable = new JTable(peopletm);	
 		PeopleScrollPanel.setViewportView(ArtistTable);
