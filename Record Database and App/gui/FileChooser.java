@@ -15,6 +15,8 @@ import java.awt.Toolkit;
 import java.io.File;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
 
 public class FileChooser extends AddNewAlbum {
 
@@ -45,7 +47,7 @@ public class FileChooser extends AddNewAlbum {
 		setTitle("Choose File From");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(FileChooser.class.getResource("/gui/11970932001393807721BenBois_Vinyl_records.svg.hi.png")));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 309, 120);
+		setBounds(100, 100, 321, 160);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -63,12 +65,6 @@ public class FileChooser extends AddNewAlbum {
 				{
 		            file = fc.getSelectedFile();
 		            
-		            ImageIcon imageIcon = new ImageIcon(""+file);
-					Image image = imageIcon.getImage();
-					Image newimg = image.getScaledInstance(ArtWorkLBWidth, ArtWorkLBHeight,  Image.SCALE_SMOOTH);
-					imageIcon = new ImageIcon(newimg);
-					
-					AddNewAlbum.ArtWork.setIcon(imageIcon);
 				}
 				
 			}
@@ -84,5 +80,46 @@ public class FileChooser extends AddNewAlbum {
 		});
 		btnFromInternet.setBounds(163, 11, 120, 38);
 		contentPane.add(btnFromInternet);
+		
+		final JComboBox comboBox = new JComboBox();
+		comboBox.setBounds(96, 60, 92, 20);
+		comboBox.setEditable(true);
+		//Need to populate drop down and disable editing
+		contentPane.add(comboBox);
+		
+		JLabel lblLocation = new JLabel("Location:");
+		lblLocation.setBounds(20, 63, 66, 14);
+		contentPane.add(lblLocation);
+		
+		JButton btnNewButton = new JButton("Done");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				//if(comboBox.getSelectedItem() == null)
+					/*
+					 * call to error pane goes here.
+					*/
+					
+				//else
+				//{
+					String temp = "" + comboBox.getSelectedItem();
+					 ImageIcon imageIcon = new ImageIcon(""+file);
+						Image image = imageIcon.getImage();
+						Image newimg = image.getScaledInstance(ArtWorkLBWidth, ArtWorkLBHeight-20,  Image.SCALE_SMOOTH);
+						imageIcon = new ImageIcon(newimg);
+						
+						AddNewAlbum.ArtworkFiles.add(file);
+						AddNewAlbum.ArtworkLocation.add(temp);
+						
+						AddNewAlbum.ArtWork.setIcon(imageIcon);
+						AddNewAlbum.ArtWork.setHorizontalTextPosition(JLabel.CENTER);
+						AddNewAlbum.ArtWork.setVerticalTextPosition(JLabel.BOTTOM);	
+						AddNewAlbum.ArtWork.setText(temp);
+				//}
+				dispose();
+			}
+		});
+		btnNewButton.setBounds(239, 101, 66, 20);
+		contentPane.add(btnNewButton);
 	}
 }

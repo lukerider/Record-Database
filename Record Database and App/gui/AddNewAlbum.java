@@ -53,7 +53,7 @@ public class AddNewAlbum extends JFrame {
 	private JTextField PurchasedDateField;
 	private JTable ArtistTable;
 	public static ArrayList<File> ArtworkFiles = new ArrayList<File>();
-	//Remember: File paths may be obtained by the too string method. 
+	public static ArrayList<String>ArtworkLocation = new ArrayList<String>();
 	
 
 	/**
