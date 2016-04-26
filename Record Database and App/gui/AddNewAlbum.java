@@ -19,10 +19,17 @@ import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JTable;
 
+import Models.Albums;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Toolkit;
 import java.awt.Dimension;
+import java.io.File;
+import java.util.ArrayList;
+import java.sql.*;
+
+
 
 public class AddNewAlbum extends JFrame {
 
@@ -45,6 +52,8 @@ public class AddNewAlbum extends JFrame {
 	protected static JLabel ArtWork;
 	private JTextField PurchasedDateField;
 	private JTable ArtistTable;
+	public static ArrayList<File> ArtworkFiles = new ArrayList<File>();
+	//Remember: File paths may be obtained by the too string method. 
 	
 
 	/**
@@ -69,6 +78,27 @@ public class AddNewAlbum extends JFrame {
 			}
 		});
 	}
+	/*
+	 * This method gathers all attributes for an Album and creates and Album Object 
+	 */
+	public Albums getAtributesForAlbum()
+	{
+		String albumName = "'"+AlbumField.getText()+"'";
+		String artistName = ""+ArtistField.getText();
+		int releaseYear = Integer.parseInt(ReleaseYearField.getText());
+		String catilogNum = "'"+CATNumField.getText()+"'";
+		String releaseCountry = "'"+ReleaseCountryField.getText()+"'";
+		
+		Albums temp = new Albums(albumName,artistName,releaseYear,releaseCountry,catilogNum);
+		return temp;
+	}
+		
+	
+	
+	
+	
+	
+	
 
 	/**
 	 * Create the frame.
@@ -88,6 +118,7 @@ public class AddNewAlbum extends JFrame {
 		contentPane.add(tabbedPane, BorderLayout.CENTER);
 		
 		JPanel GeneralInfo = new JPanel();
+		GeneralInfo.setName("GeneralInfo");
 		tabbedPane.addTab("General Info", null, GeneralInfo, null);
 		GeneralInfo.setLayout(null);
 		
@@ -102,6 +133,47 @@ public class AddNewAlbum extends JFrame {
 		DonePanel.add(required);
 		
 		JButton btnNewButton = new JButton("Done");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try 
+				{
+					/***********************************Set Up******************************************/
+					Class.forName("org.sqlite.JDBC");
+					Statement stmt = null;
+					ResultSet rs = null;
+					String sql = null;
+					/**********************************Connect to Database******************************/
+					Connection c = DriverManager.getConnection("jdbc:sqlite:Record.db");
+					c.setAutoCommit(false);
+					/*****************************Collect & Submit Data*********************************/
+					//Album
+					Albums album = getAtributesForAlbum();
+					//Submit Album
+						//sql = ;
+						//stmt.executeUpdate(sql);
+					//Vendor
+					
+					//Version
+					
+					
+					//Artist
+					
+					//People
+					
+					//Artwork				
+					
+					/***********************************Close Connection********************************/
+					stmt.close();
+					c.close();					
+				} 
+				catch (Exception e)
+				{
+					gui.ErrorPane error = new gui.ErrorPane();
+					error.setErrorMessage("Submit Was Unsuccessful");
+					error.main(null);
+				}	
+			}
+		});
 		btnNewButton.setBounds(332, 0, 89, 19);
 		DonePanel.add(btnNewButton);
 		
@@ -292,6 +364,7 @@ public class AddNewAlbum extends JFrame {
 		
 		
 		JPanel AlbumArtwork = new JPanel();
+		AlbumArtwork.setName("AlbumArtwork");
 		tabbedPane.addTab("Album Artwork", null, AlbumArtwork, null);
 		AlbumArtwork.setLayout(null);
 		
