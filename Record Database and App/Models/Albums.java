@@ -1,5 +1,7 @@
 package Models;
-
+/*
+ * All Fields are required for this class
+ */
 import java.sql.*;
 public class Albums {
 	
@@ -147,7 +149,7 @@ public class Albums {
 	}
 	
 	///////////////////////////////////////////////Setter Methods////////////////////////////////////////////////////
-	//DONE: write all setter methods
+	//DONE: write all setter methods in Albums
 
 	public void setAlbumName(String tempAlbumName)
 	{
@@ -177,6 +179,20 @@ public class Albums {
 	public void setCatilogNum(String tempCatilogNum)
 	{
 		catilogNum = tempCatilogNum;
+	}
+	
+	/*
+	 * Returns true if the passed album is  equal to the latter. This comparison is made between 
+	 * the two Catalog Numbers of the two Albums.
+	 * 
+	 * @precondition: all required fields are met
+	 */
+	public boolean equals(Albums tempAlbum)
+	{
+		if(this.getCatilogNum().equals(tempAlbum.getCatilogNum()))
+			return true;
+		else
+			return false;
 	}
 	
 	/*
