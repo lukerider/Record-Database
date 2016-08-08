@@ -2,6 +2,8 @@ package Models;
 /*
  * All Fields are required for this class
  */
+
+import Helpers.Helper;
 import java.sql.*;
 public class Albums {
 	
@@ -56,16 +58,8 @@ public class Albums {
 		
 	}//end constructor
 	
-	//Helper Methods
-	private String atributeNames()
-	{
-		String out = "";
-		for(String temp: atrubuteArray)
-		{
-			out= out +temp +",";
-		}
-		return out;
-	}
+	
+	//Class Specific Helper Methods
 	
 	/*
 	 *@param dbPath: Path from Working Director
@@ -103,10 +97,13 @@ public class Albums {
 	{
 		try
 		{
-			Integer temp = new Integer(artistID);
-			Integer temp2 = new Integer(releaseYear);
-			if((!albumName.equals(null)) && (!temp.equals(null)) &&(!temp2.equals(null)) && 
-				(!releaseCountry.equals(null)) && (!catilogNum.equals(null)))
+		
+			
+			if((!Helper.empty(albumName))&&
+			    (!Helper.empty(""+artistID))&&
+			    (!Helper.empty(""+releaseYear))&&
+			    (!Helper.empty(releaseCountry))&&
+			    (!Helper.empty(""+catilogNum)))
 			{
 				return true;
 			}
@@ -147,7 +144,7 @@ public class Albums {
 				System.out.println("connection to "+DBName+" susessful");//REMOVE END
 				stmt = c.createStatement();
 				//Submitting
-				sql = "insert into Albums ("+atributeNames()+")"
+				sql = "insert into Albums ("+Helper.makeAtributeString(atrubuteArray)+")"
 						+ "values("+ toString()+")";
 				stmt.executeUpdate(sql);
 				//Closing Connection
@@ -204,7 +201,7 @@ public class Albums {
 				sql = "delet from Albums where AlbumID = "+ albumID;
 				stmt.executeUpdate(sql);
 				//Adds new one
-				sql = "insert into Albums (AlbumID,"+atributeNames()+")+"
+				sql = "insert into Albums (AlbumID,"+Helper.makeAtributeString(atrubuteArray)+")+"
 						+ "values("+ updated.getAlbumID()+","+updated.toString()+")";
 				stmt.executeUpdate(sql);
 				//Closing out
